@@ -11,29 +11,37 @@ int main(void)
 
     while (1)
         {
-        if (!(PINB & (1 << PB7)))
+            while (!(PINB & (1 << PB7)))
             {
-            i = (rand()%10);
-            for(int E=0;E<=i;E++)
+                i=i+1;
+                if(i==10)
                 {
-                    for(int count=0;count <=25;count++)
-                        {   
-                            PORTB ^= (1 << PB1);
-                            _delay_ms(2);
-                        }
-                    _delay_ms(500);
-                    for(int count=0;count <=25;count++)
-                        {   
-                            PORTB ^= (1 << PB1);
-                            _delay_ms(4);
-                        }
-                    _delay_ms(500);
+                    i=0;
                 }
-            for(int count=0; count <=1000; count++)
-                {
-                    PORTB ^= (1 << PB1);
-                    _delay_ms(1); 
-                }
+            }
+            if(i>0)
+            {
+                for(int E=0;E<=i;E++)
+                    {
+                        for(int count=0;count <=25;count++)
+                            {   
+                                PORTB ^= (1 << PB1);
+                                _delay_ms(2);
+                            }
+                        _delay_ms(500);
+                        for(int count=0;count <=25;count++)
+                            {   
+                                PORTB ^= (1 << PB1);
+                                _delay_ms(4);
+                            }
+                        _delay_ms(500);
+                    }
+                for(int count=0; count <=1000; count++)
+                    {
+                        PORTB ^= (1 << PB1);
+                        _delay_ms(1);
+                        i=0;   
+                    }
             }
         }
     return 0;
